@@ -12,6 +12,7 @@
 4. [Deployment Script](https://gist.github.com/harish-deriv/86e81c0910f85b041430554d4a9de687)
 
 ### Deployment Plan
+#### Overview
 1. Linux deployment - Jumpcloud
 2. MacOS deployment - Kandji
 3. Main slack channel - #temp_precommit_hooks_plan
@@ -24,6 +25,19 @@
 6. The deployment would need to be modified depending on the dev's environment
 7. Set up a AWS Instance for the python server
 
+#### Configurations
+1. Two files would be created for the precommit configurations.  
+    1. The first file would be a bash file that would contain the logic for the precommit secret scanner, created under `/opt/skel`.
+    2. The second file would be the main precommit file that would be created under `<User's home path>/.git/hooks/pre-commit`. 
+2. The main precommit file would invoke the bash script that is under `/opt/skel` whenever a commit is performed.
+
+#### Alternative Suggestion
+3. Alternative Method (Require Discussion)
+    1. Instead of creating a bash script under `/opt/skel`, the bash script would be hosted on a public repository.
+    2. The main precommit file would execute the bash script through `curl` and piped the output to `/bin/bash`.
+    3. Reasons:
+        - This would make maintaining the pre-commit much easier as future update can simply be preformed update the repository. 
+        - There will no need for the MDM after the initial deployment.    
 
 ### QA Environment Deployment Plan
 1. Dev's are developing and pushing code through QA Box instead of local machine 
